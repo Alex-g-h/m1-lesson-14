@@ -15,7 +15,7 @@ form.addEventListener('submit', (event) => {
 
   // create new task  
   const newTask = {
-    id: Date.now(),
+    id: String(Date.now()),
     completed: false,
     text: target.taskName.value
   };
