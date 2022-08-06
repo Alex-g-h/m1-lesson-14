@@ -36,6 +36,7 @@ deleteModal.classList.add('modal-overlay_hidden'); {
 }
 body.append(deleteModal);
 
+// add event to task's button delete
 const taskList = document.querySelector('.tasks-list');
 taskList.addEventListener('click', (event) => {
   const { target } = event;
@@ -45,23 +46,31 @@ taskList.addEventListener('click', (event) => {
   }
 });
 
+// handler for cancel button modal dialog
 const deleteModalCancelButton = deleteModal.querySelector('.delete-modal__cancel-button');
 deleteModalCancelButton.addEventListener('click', () => {
+  // close modal dialog and clean up metadata
   deleteModal.classList.add('modal-overlay_hidden');
   deleteModal.removeAttribute('data-delete-id');
 });
 
+// handler for delete button modal dialog
 const deleteModalDeleteButton = deleteModal.querySelector('.delete-modal__confirm-button');
 deleteModalDeleteButton.addEventListener('click', (event) => {
+  // seek task to delete
   const indexOfTaskToDelete = tasks.findIndex(task => {
     return task.id === deleteModal.dataset.deleteId;
   });
+
+  // delete task from array if found
   if (indexOfTaskToDelete >= 0) {
     tasks.splice(indexOfTaskToDelete, 1);
   }
 
+  // update tasks list in HTML
   showTasks();
 
+  // close modal dialog and clean up metadata
   deleteModal.classList.add('modal-overlay_hidden');
   deleteModal.removeAttribute('data-delete-id');
 })
